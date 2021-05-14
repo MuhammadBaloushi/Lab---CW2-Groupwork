@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="/assets/style.css">
+</head>
+<body>
+    <div id='store'>
+    <div id="users">
+      <div class="card" v-for="user in users">
+        <img v-bind:src="user.profileImg" alt="Avatar" style="width:100%">
+        <div class="container">
+          <h4><b>{{user.firstName}} {{user.lastName}} </b></h4> 
+          <p>{{user.role}}</p> 
+        </div>
+      </div>
+
+</div>
+</div>
+<script src="https://unpkg.com/vue"></script>
+
+    <script>
+        let store = new Vue({
+            el: '#store',
+            data: {
+                users: [],
+            },
+            created: function () {
+                console.log('requesting data from server ...')
+                
+                fetch('http://localhost:5000/users').then(
+                    function (response) {
+                        response.json().then(
+                            function (json) {
+                                // save the returned JSON object to
+                                // 'product' data property
+                                store.users = json;
+                                console.log(json);
+                            });
+                    }
+                )
+            }
+
+        })
+    </script>
+</body>
+</html>

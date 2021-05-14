@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="https://unpkg.com/vue"></script>
+    <link rel="stylesheet" href="/assets/style.css">
+</head>
+<body>
+    <div id='store'>
+        <div id="users">
+           
+          <div class="card" v-for="lesson in lessons">
+            <h2>{{lesson.title}}</h2>
+            <img v-bind:src="lesson.coverPage" alt="Avatar" style="width:100%">
+            <div class="container">
+              <h4><b>Subject: {{lesson.subject}} </b></h4> 
+              <p>Price: {{lesson.price}}</p> 
+              <p>Price: {{lesson.location}}</p> 
+            </div>
+          </div>
+    
+    </div>
+    </div>
+
+
+    <script>
+        let store = new Vue({
+            el: '#store',
+            data: {
+                lessons: [],
+            },
+            created: function () {
+                console.log('requesting data from server ...')
+                
+                fetch('http://localhost:5000/lessons').then(
+                    function (response) {
+                        response.json().then(
+                            function (json) {
+                                // save the returned JSON object to
+                                // 'product' data property
+                                store.lessons = json;
+                                console.log(json);
+                            });
+                    }
+                )
+            }
+
+        })
+    </script>
+</body>
+</html>
