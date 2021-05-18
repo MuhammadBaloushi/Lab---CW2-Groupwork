@@ -1,19 +1,10 @@
 const express = require('express');
 const path = require('path');
 
-
 const app = express();
 const port = 5000;
 
-
 app.use(express.static(__dirname + '/client'));
-
-var myData = [
-    { Name: 'Ahmed', Age: '20', Role: 'Developer' },
-    { Name: 'Bambo', Age: '15', Role: 'Tester' },
-    { Name: 'RamoKaka', Age: '25', Role: 'Worker' }
-];
-
 
 const lessons = [
     {
@@ -73,48 +64,22 @@ const users = [
         'role': 'Designer',
         'profileImg' : '/assets/imgs/img_avatar.png'
     },
-
+    
 ];
+
 
 //Start of Routes
 
-
-//Test
-
-app.get('/client/:name', function (req, res, next) {
-    var options = {
-        root: path.join(__dirname, 'client'),
-        dotfiles: 'deny',
-        headers: {
-            'x-timestamp': Date.now(),
-            'x-sent': true
-        }
-    }
-
-    var fileName = req.params.name
-    res.sendFile(fileName, options, function (err) {
-        if (err) {
-            next(err)
-        } else {
-            console.log('Sent:', fileName)
-        }
-    })
-});
-
-
-//Test
-
 //Home Route 
 app.get('/', function (req, res) {
-    // res.writeHead(200,{'Content-Type':'application\json'});
-
+    //Sending Response over HTTP
     res.send("General Home Page");
 
 });
 
 //Route to lessons 
 app.get('/lessons', function (req, res) {
-    //res.send("Hello General Home");
+    //Sending Response over HTTP
     res.send(JSON.stringify(lessons));
    // res.sendFile()
 
@@ -122,11 +87,12 @@ app.get('/lessons', function (req, res) {
 
 //Route to users 
 app.get('/users', function (req, res) {
+    //Sending Response over HTTP
     res.send(JSON.stringify(users));
 
 });
 
 //End of Routes 
 
-
+//Starting App 
 app.listen(port);
